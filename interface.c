@@ -119,7 +119,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonRefresh), 4);
 	GTK_WIDGET_SET_FLAGS (buttonRefresh, GTK_CAN_DEFAULT);
 
-	buttonConfigure = gtk_button_new_with_label ("Configure");
+	buttonConfigure = gtk_button_new_with_label ("Configure...");
 	gtk_widget_set_name (buttonConfigure, "buttonConfigure");
 	gtk_widget_ref (buttonConfigure);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonConfigure", buttonConfigure,
@@ -129,7 +129,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonConfigure), 4);
 	GTK_WIDGET_SET_FLAGS (buttonConfigure, GTK_CAN_DEFAULT);
 
-	buttonAbout = gtk_button_new_with_label ("About");
+	buttonAbout = gtk_button_new_with_label ("About...");
 	gtk_widget_set_name (buttonAbout, "buttonAbout");
 	gtk_widget_ref (buttonAbout);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonAbout", buttonAbout,
