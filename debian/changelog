@@ -1,0 +1,25 @@
+usbview (1.0-1) unstable; urgency=low
+
+  * New maintainer.
+  * Don't install INSTALL as documentation (closes: #119127).
+  * Added build dependancies.
+  * Update to policy 3.5.6 (no changes).
+  * Remove dh_suidregister call in rules file.
+
+ -- Mark Brown <broonie@debian.org>  Sun, 11 Nov 2001 14:10:50 +0000
+
+usbview (1.0-0.1) unstable; urgency=low
+
+  * Non-maintainter upload.
+  * New upstream release (closes: #83966).
+  * Has refreshed automatically on startup since 0.9 (closes: #83914).
+  * Suggests usbutils instead of lsusb (closes: #72488).
+
+ -- Mark Brown <broonie@debian.org>  Mon, 29 Jan 2001 01:24:40 +0000
+
+usbview (0.7.0-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Raphael Bossek <bossekr@debian.org>  Sun,  9 Jan 2000 12:10:40 +0100
+
