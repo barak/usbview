@@ -3,7 +3,7 @@ Section: x11
 Priority: optional
 Maintainer: Mark Brown <broonie@debian.org>
 Standards-Version: 3.6.1
-Build-Depends: debhelper (>= 4), xlibs-dev, libgtk1.2-dev, libglib1.2-dev
+Build-Depends: debhelper (>= 4), libgtk1.2-dev, libglib1.2-dev
 
 Package: usbview
 Architecture: any

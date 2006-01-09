@@ -1,3 +1,10 @@
+usbview (1.0-7) unstable; urgency=low
+
+  * Drop build depends on xlibs-dev, we only use libgtk anyway and that will
+    pull in what it needs (closes: #346885).
+
+ -- Mark Brown <broonie@debian.org>  Mon,  9 Jan 2006 19:23:31 +0000
+
 usbview (1.0-6) unstable; urgency=low
 
   * Quote needs and section in menu file.
