@@ -66,7 +66,7 @@ void about_dialog (void)
 	dialog_vbox1 = GTK_DIALOG (aboutDialog)->vbox;
 	gtk_object_set_data (GTK_OBJECT (aboutDialog), "dialog_vbox1", dialog_vbox1);
 	gtk_widget_show (dialog_vbox1);
-	
+
 	gtk_widget_realize(aboutDialog);
 	logo = gdk_pixmap_create_from_xpm_d (aboutDialog->window, &logoMask, NULL, usbview_logo_xpm);
 	logoWidget = gtk_pixmap_new (logo, logoMask);

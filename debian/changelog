@@ -1,3 +1,12 @@
+usbview (1.0-8) unstable; urgency=low
+
+  * Include up to revision 1.23 from upstream BitKeeper (!), including a
+    port to GTK 2.
+  * Only make clean if there is a Makefile.
+  * Policy 3.7.2 (no changes).
+
+ -- Mark Brown <broonie@debian.org>  Sun, 08 Jul 2007 19:09:14 +0100
+
 usbview (1.0-7) unstable; urgency=low
 
   * Drop build depends on xlibs-dev, we only use libgtk anyway and that will

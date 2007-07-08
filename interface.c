@@ -32,7 +32,8 @@
 #include "usbtree.h"
 
 GtkWidget *treeUSB;
-GtkWidget *textDescription;
+GtkTextBuffer *textDescriptionBuffer;
+GtkWidget *textDescriptionView;
 
 int timer;
 
@@ -90,13 +91,17 @@ create_windowMain ()
 	gtk_container_add (GTK_CONTAINER (hpaned1), scrolledwindow1);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
 
-	textDescription = gtk_text_new (NULL, NULL);
-	gtk_widget_set_name (textDescription, "textDescription");
-	gtk_widget_ref (textDescription);
-	gtk_object_set_data_full (GTK_OBJECT (windowMain), "textDescription", textDescription,
+	textDescriptionBuffer = gtk_text_buffer_new(NULL);
+	//textDescription = gtk_text_new (NULL, NULL);
+	textDescriptionView = gtk_text_view_new_with_buffer(textDescriptionBuffer);
+	gtk_widget_set_name (textDescriptionView, "textDescription");
+	gtk_widget_ref (textDescriptionView);
+	gtk_object_set_data_full (GTK_OBJECT (windowMain), "textDescription", textDescriptionView,
 				  (GtkDestroyNotify) gtk_widget_unref);
-	gtk_widget_show (textDescription);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), textDescription);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(textDescriptionView), FALSE);
+	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(textDescriptionView), FALSE);
+	gtk_widget_show (textDescriptionView);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow1), textDescriptionView);
 
 	hbuttonbox1 = gtk_hbutton_box_new ();
 	gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
@@ -166,7 +171,7 @@ create_windowMain ()
 			    NULL);
 
 	/* create our timer */
-	timer = gtk_timeout_add (2000, on_timer_timeout, 0);
+	//timer = gtk_timeout_add (2000, on_timer_timeout, 0);
 	
 	return windowMain;
 }
