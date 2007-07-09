@@ -1,3 +1,9 @@
+usbview (1.0-9) unstable; urgency=low
+
+  * Update build deps (closes: #432395).
+
+ -- Mark Brown <broonie@debian.org>  Mon, 09 Jul 2007 20:41:06 +0100
+
 usbview (1.0-8) unstable; urgency=low
 
   * Include up to revision 1.23 from upstream BitKeeper (!), including a
