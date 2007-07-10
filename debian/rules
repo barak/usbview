@@ -9,6 +9,8 @@ build: build-stamp
 build-stamp:
 	dh_testdir
 	mv ChangeLog changelog
+	# Prevent regeneration of any of the auto* gunk.
+	touch configure Makefile.in
 	./configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info
 
 	touch build-stamp
@@ -40,7 +42,6 @@ binary-indep: build install
 binary-arch: build install
 	dh_testdir
 	dh_testroot
-#	dh_installdebconf	
 	dh_installdocs
 	dh_installexamples
 	dh_installmenu
@@ -53,9 +54,7 @@ binary-arch: build install
 	dh_strip
 	dh_compress
 	dh_fixperms
-#	dh_makeshlibs
 	dh_installdeb
-#	dh_perl
 	dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums

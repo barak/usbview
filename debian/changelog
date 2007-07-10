@@ -1,3 +1,9 @@
+usbview (1.0-10) unstable; urgency=low
+
+  * Stop autofoo trying to regenerate their output files during build.
+
+ -- Mark Brown <broonie@debian.org>  Tue, 10 Jul 2007 12:38:42 +0100
+
 usbview (1.0-9) unstable; urgency=low
 
   * Update build deps (closes: #432395).
