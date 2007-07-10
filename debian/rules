@@ -10,7 +10,8 @@ build-stamp:
 	dh_testdir
 	mv ChangeLog changelog
 	# Prevent regeneration of any of the auto* gunk.
-	touch configure Makefile.in
+	touch configure aclocal.m4 Makefile.in
+	touch config.h.in
 	./configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info
 
 	touch build-stamp

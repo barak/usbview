@@ -1,3 +1,9 @@
+usbview (1.0-11) unstable; urgency=low
+
+  * Inhibit aclocal and autoheader too.
+
+ -- Mark Brown <broonie@debian.org>  Tue, 10 Jul 2007 23:17:04 +0100
+
 usbview (1.0-10) unstable; urgency=low
 
   * Stop autofoo trying to regenerate their output files during build.
