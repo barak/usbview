@@ -1,11 +1,10 @@
 /*************************************************************************
 ** interface.c for USBView - a USB device viewer
-** Copyright (c) 1999, 2000 by Greg Kroah-Hartman, <greg@kroah.com>
+** Copyright (c) 1999, 2000, 2009 by Greg Kroah-Hartman, <greg@kroah.com>
 **
 **  This program is free software; you can redistribute it and/or modify
 **  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation; either version 2 of the License, or
-**  (at your option) any later version.
+**  the Free Software Foundation; either version 2 of the License.
 **
 **  This program is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,6 +29,7 @@
 #include <gtk/gtk.h>
 
 #include "usbtree.h"
+#include "usb_icon.xpm"
 
 GtkWidget *treeUSB;
 GtkTextBuffer *textDescriptionBuffer;
@@ -49,12 +49,16 @@ create_windowMain ()
 	GtkWidget *buttonConfigure;
 	GtkWidget *buttonClose;
 	GtkWidget *buttonAbout;
+	GdkPixbuf *icon;
 
 	windowMain = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_name (windowMain, "windowMain");
 	gtk_object_set_data (GTK_OBJECT (windowMain), "windowMain", windowMain);
 	gtk_window_set_title (GTK_WINDOW (windowMain), "USB Viewer");
 	gtk_window_set_default_size (GTK_WINDOW (windowMain), 500, 300);
+
+	icon = gdk_pixbuf_new_from_xpm_data((const char **)usb_icon_xpm);
+	gtk_window_set_icon(GTK_WINDOW(windowMain), icon);
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_set_name (vbox1, "vbox1");
@@ -114,7 +118,7 @@ create_windowMain ()
 	//gtk_button_box_set_child_size (GTK_BUTTON_BOX (hbuttonbox1), 50, 25);
 	//gtk_button_box_set_child_ipadding (GTK_BUTTON_BOX (hbuttonbox1), 25, 10);
 
-	buttonRefresh = gtk_button_new_with_label ("Refresh");
+	buttonRefresh = gtk_button_new_from_stock(GTK_STOCK_REFRESH);
 	gtk_widget_set_name (buttonRefresh, "buttonRefresh");
 	gtk_widget_ref (buttonRefresh);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonRefresh", buttonRefresh,
@@ -134,7 +138,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonConfigure), 4);
 	GTK_WIDGET_SET_FLAGS (buttonConfigure, GTK_CAN_DEFAULT);
 
-	buttonAbout = gtk_button_new_with_label ("About...");
+	buttonAbout = gtk_button_new_from_stock(GTK_STOCK_ABOUT);
 	gtk_widget_set_name (buttonAbout, "buttonAbout");
 	gtk_widget_ref (buttonAbout);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonAbout", buttonAbout,
@@ -144,7 +148,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonAbout), 4);
 	GTK_WIDGET_SET_FLAGS (buttonAbout, GTK_CAN_DEFAULT);
 
-	buttonClose = gtk_button_new_with_label ("Close");
+	buttonClose = gtk_button_new_from_stock(GTK_STOCK_QUIT);
 	gtk_widget_set_name (buttonClose, "buttonClose");
 	gtk_widget_ref (buttonClose);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonClose", buttonClose,

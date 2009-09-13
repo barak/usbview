@@ -10,7 +10,8 @@ from the following sources:
 Changes:
   * Added Debian GNU/Linux packaging files.
 
-This software is released under the terms of the GNU General Public License.
+This software is released under the terms of the GNU General Public License
+v2.
 
-On Debian systems, the complete text of the GNU General Public License
-can be found in /usr/share/common-licenses/GPL.
+On Debian systems, the complete text of the GNU General Public License v2
+can be found in /usr/share/common-licenses/GPL-2.

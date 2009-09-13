@@ -5,9 +5,11 @@ INCLUDES = \
 	$(GLIB_CFLAGS)	\
 	@CPPFLAGS@
 
-VERSION = 1.0
+VERSION = 1.1
 
 bin_PROGRAMS = usbview
+
+man_MANS = usbview.8
 
 usbview_SOURCES =		\
 	main.c			\
@@ -20,9 +22,11 @@ usbview_SOURCES =		\
 	about-dialog.c		\
 	usbview_logo.xpm	\
 	usbview_logo.xcf	\
+	usb_icon.xpm		\
 	usbview.spec
 
 usbview_LDADD = \
 	$(GTK_LIBS)	\
 	$(GLIB_LIBS)
 
+EXTRA_DIST = $(man_MANS)

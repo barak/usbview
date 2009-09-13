@@ -4,8 +4,7 @@
 **
 **  This program is free software; you can redistribute it and/or modify
 **  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation; either version 2 of the License, or
-**  (at your option) any later version.
+**  the Free Software Foundation; either version 2 of the License.
 **
 **  This program is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -61,7 +60,6 @@ static void Init (void)
 static void PopulateListBox (int deviceId)
 {
 	Device  *device;
-	//gint    position = 0;
 	char    *string;
 	char    *tempString;
 	int     configNum;
@@ -71,7 +69,6 @@ static void PopulateListBox (int deviceId)
 	int     busNumber = (deviceId & 0x00ff);
 	GtkTextIter begin;
 	GtkTextIter end;
-	GtkTextIter position;
 
 	device = usb_find_device (deviceNumber, busNumber);
 	if (device == NULL) {

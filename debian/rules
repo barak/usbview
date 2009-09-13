@@ -31,10 +31,10 @@ clean:
 install: build
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installdirs
 
-	$(MAKE) prefix=`pwd`/debian/usbview/usr install
+	$(MAKE) DESTDIR=`pwd`/debian/usbview install
 
 # Build architecture-independent files here.
 binary-indep: build install
@@ -47,7 +47,7 @@ binary-arch: build install
 	dh_installexamples
 	dh_installmenu
 
-	cp debian/usbview.desktop debian/usbview/usr/share/gnome/apps/System
+	cp debian/usbview.desktop debian/usbview/usr/share/applications
 
 	dh_installman
 	dh_installchangelogs

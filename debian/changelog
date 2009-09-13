@@ -1,3 +1,11 @@
+usbview (1.1-1) unstable; urgency=low
+
+  * New upstream release (closes: #546177).
+  * Now includes an icon (closes: #394185).
+  * Convert to debhelper 7.
+
+ -- Mark Brown <broonie@debian.org>  Sun, 13 Sep 2009 10:25:36 +0100
+
 usbview (1.0-11) unstable; urgency=low
 
   * Inhibit aclocal and autoheader too.
