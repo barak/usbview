@@ -4,16 +4,12 @@
 **
 **  This program is free software; you can redistribute it and/or modify
 **  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation; either version 2 of the License.
+**  the Free Software Foundation; version 2 of the License.
 **
 **  This program is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
 **  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 **  GNU General Public License for more details.
-**
-**  You should have received a copy of the GNU General Public License
-**  along with this program; if not, write to the Free Software
-**  Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 **
 ** (See the included file COPYING)
 *************************************************************************/
@@ -23,13 +19,13 @@
 #endif
 
 #include <gtk/gtk.h>
-
 #include "usbtree.h"
+#include "usbview_logo.xpm"	/* logo */
 
 
 void on_buttonClose_clicked (GtkButton *button, gpointer user_data)
 {
-	gtk_exit(0);
+	gtk_main_quit();
 }
 
 
@@ -55,7 +51,21 @@ void on_buttonConfigure_clicked (GtkButton *button, gpointer user_data)
 
 void on_buttonAbout_clicked (GtkButton *button, gpointer user_data)
 {
-	about_dialog ();
+	GdkPixbuf *logo;
+	gchar *authors[] = { "Greg Kroah-Hartman <greg@kroah.com>", NULL };
+
+	logo = gdk_pixbuf_new_from_xpm_data ((const char **)usbview_logo_xpm);
+	gtk_show_about_dialog (GTK_WINDOW (windowMain),
+		"logo", logo,
+		"program-name", "usbview",
+		"version", VERSION,
+		"comments", "Display information on USB devices",
+		"website-label", "http://www.kroah.com/linux-usb/",
+		"website", "http://www.kroah.com/linux-usb/",
+		"copyright", "Copyright © 1999-2012",
+		"authors", authors,
+		NULL);
+	g_object_unref (logo);
 }
 
 

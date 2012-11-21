@@ -1,3 +1,10 @@
+usbview (2.0-1) unstable; urgency=low
+
+  * New upstream release (closes: #691232).
+  * Updated for current kernel ABIs (closes: #451191, #599162). 
+
+ -- Mark Brown <broonie@debian.org>  Wed, 21 Nov 2012 16:40:38 +0900
+
 usbview (1.1-1) unstable; urgency=low
 
   * New upstream release (closes: #546177).

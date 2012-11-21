@@ -4,11 +4,11 @@ Priority: optional
 Maintainer: Mark Brown <broonie@debian.org>
 Standards-Version: 3.8.3
 Homepage: http://www.kroah.com/linux-usb/
-Build-Depends: debhelper (>= 7), libgtk2.0-dev
+Build-Depends: debhelper (>= 7), libgtk-3-dev
 
 Package: usbview
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Suggests: usbutils
 Description: USB device viewer
  USBView is a small GTK+ application to show what the device tree of
