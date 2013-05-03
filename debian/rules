@@ -5,6 +5,13 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+DPKG_EXPORT_BUILFLAGS=1
+include /usr/share/dpkg/buildflags.mk
+
+CFLAGS += $(CPPFLAGS)
+
+build-arch: build
+build-indep: 
 build: build-stamp
 build-stamp:
 	dh_testdir
@@ -13,6 +20,7 @@ build-stamp:
 	touch configure aclocal.m4 Makefile.in
 	touch config.h.in
 	./configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info
+	make CFLAGS="$(CFLAGS)" LDFLAGS="$(LDFLAGS)"
 
 	touch build-stamp
 
