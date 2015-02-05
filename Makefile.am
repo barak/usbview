@@ -5,7 +5,7 @@ INCLUDES = \
 	$(GLIB_CFLAGS)	\
 	@CPPFLAGS@
 
-VERSION = 1.1
+VERSION = 2.0
 
 bin_PROGRAMS = usbview
 
@@ -16,10 +16,8 @@ usbview_SOURCES =		\
 	interface.c		\
 	callbacks.c		\
 	usbtree.c usbtree.h	\
-	showmessage.c		\
 	usbparse.c usbparse.h	\
 	configure-dialog.c      \
-	about-dialog.c		\
 	usbview_logo.xpm	\
 	usbview_logo.xcf	\
 	usb_icon.xpm		\
