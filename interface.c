@@ -1,11 +1,10 @@
 /*************************************************************************
 ** interface.c for USBView - a USB device viewer
-** Copyright (c) 1999, 2000 by Greg Kroah-Hartman, <greg@kroah.com>
+** Copyright (c) 1999, 2000, 2009 by Greg Kroah-Hartman, <greg@kroah.com>
 **
 **  This program is free software; you can redistribute it and/or modify
 **  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation; either version 2 of the License, or
-**  (at your option) any later version.
+**  the Free Software Foundation; either version 2 of the License.
 **
 **  This program is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,9 +29,11 @@
 #include <gtk/gtk.h>
 
 #include "usbtree.h"
+#include "usb_icon.xpm"
 
 GtkWidget *treeUSB;
-GtkWidget *textDescription;
+GtkTextBuffer *textDescriptionBuffer;
+GtkWidget *textDescriptionView;
 
 int timer;
 
@@ -48,12 +49,16 @@ create_windowMain ()
 	GtkWidget *buttonConfigure;
 	GtkWidget *buttonClose;
 	GtkWidget *buttonAbout;
+	GdkPixbuf *icon;
 
 	windowMain = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_widget_set_name (windowMain, "windowMain");
 	gtk_object_set_data (GTK_OBJECT (windowMain), "windowMain", windowMain);
 	gtk_window_set_title (GTK_WINDOW (windowMain), "USB Viewer");
 	gtk_window_set_default_size (GTK_WINDOW (windowMain), 500, 300);
+
+	icon = gdk_pixbuf_new_from_xpm_data((const char **)usb_icon_xpm);
+	gtk_window_set_icon(GTK_WINDOW(windowMain), icon);
 
 	vbox1 = gtk_vbox_new (FALSE, 0);
 	gtk_widget_set_name (vbox1, "vbox1");
@@ -90,13 +95,17 @@ create_windowMain ()
 	gtk_container_add (GTK_CONTAINER (hpaned1), scrolledwindow1);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
 
-	textDescription = gtk_text_new (NULL, NULL);
-	gtk_widget_set_name (textDescription, "textDescription");
-	gtk_widget_ref (textDescription);
-	gtk_object_set_data_full (GTK_OBJECT (windowMain), "textDescription", textDescription,
+	textDescriptionBuffer = gtk_text_buffer_new(NULL);
+	//textDescription = gtk_text_new (NULL, NULL);
+	textDescriptionView = gtk_text_view_new_with_buffer(textDescriptionBuffer);
+	gtk_widget_set_name (textDescriptionView, "textDescription");
+	gtk_widget_ref (textDescriptionView);
+	gtk_object_set_data_full (GTK_OBJECT (windowMain), "textDescription", textDescriptionView,
 				  (GtkDestroyNotify) gtk_widget_unref);
-	gtk_widget_show (textDescription);
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), textDescription);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(textDescriptionView), FALSE);
+	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(textDescriptionView), FALSE);
+	gtk_widget_show (textDescriptionView);
+	gtk_container_add (GTK_CONTAINER (scrolledwindow1), textDescriptionView);
 
 	hbuttonbox1 = gtk_hbutton_box_new ();
 	gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
@@ -109,7 +118,7 @@ create_windowMain ()
 	//gtk_button_box_set_child_size (GTK_BUTTON_BOX (hbuttonbox1), 50, 25);
 	//gtk_button_box_set_child_ipadding (GTK_BUTTON_BOX (hbuttonbox1), 25, 10);
 
-	buttonRefresh = gtk_button_new_with_label ("Refresh");
+	buttonRefresh = gtk_button_new_from_stock(GTK_STOCK_REFRESH);
 	gtk_widget_set_name (buttonRefresh, "buttonRefresh");
 	gtk_widget_ref (buttonRefresh);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonRefresh", buttonRefresh,
@@ -119,7 +128,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonRefresh), 4);
 	GTK_WIDGET_SET_FLAGS (buttonRefresh, GTK_CAN_DEFAULT);
 
-	buttonConfigure = gtk_button_new_with_label ("Configure");
+	buttonConfigure = gtk_button_new_with_label ("Configure...");
 	gtk_widget_set_name (buttonConfigure, "buttonConfigure");
 	gtk_widget_ref (buttonConfigure);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonConfigure", buttonConfigure,
@@ -129,7 +138,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonConfigure), 4);
 	GTK_WIDGET_SET_FLAGS (buttonConfigure, GTK_CAN_DEFAULT);
 
-	buttonAbout = gtk_button_new_with_label ("About");
+	buttonAbout = gtk_button_new_from_stock(GTK_STOCK_ABOUT);
 	gtk_widget_set_name (buttonAbout, "buttonAbout");
 	gtk_widget_ref (buttonAbout);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonAbout", buttonAbout,
@@ -139,7 +148,7 @@ create_windowMain ()
 	gtk_container_set_border_width (GTK_CONTAINER (buttonAbout), 4);
 	GTK_WIDGET_SET_FLAGS (buttonAbout, GTK_CAN_DEFAULT);
 
-	buttonClose = gtk_button_new_with_label ("Close");
+	buttonClose = gtk_button_new_from_stock(GTK_STOCK_QUIT);
 	gtk_widget_set_name (buttonClose, "buttonClose");
 	gtk_widget_ref (buttonClose);
 	gtk_object_set_data_full (GTK_OBJECT (windowMain), "buttonClose", buttonClose,
@@ -166,7 +175,7 @@ create_windowMain ()
 			    NULL);
 
 	/* create our timer */
-	timer = gtk_timeout_add (2000, on_timer_timeout, 0);
+	//timer = gtk_timeout_add (2000, on_timer_timeout, 0);
 	
 	return windowMain;
 }

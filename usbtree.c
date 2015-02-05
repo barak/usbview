@@ -4,8 +4,7 @@
 **
 **  This program is free software; you can redistribute it and/or modify
 **  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation; either version 2 of the License, or
-**  (at your option) any later version.
+**  the Free Software Foundation; either version 2 of the License.
 **
 **  This program is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -41,13 +40,18 @@
 
 static void Init (void)
 {
+	GtkTextIter begin;
+	GtkTextIter end;
+
 	/* blow away the tree if there is one */
 	if (rootDevice != NULL) {
 		gtk_ctree_remove_node (GTK_CTREE(treeUSB), GTK_CTREE_NODE(rootDevice->leaf));
 	}
 
 	/* clean out the text box */
-	gtk_editable_delete_text (GTK_EDITABLE(textDescription), 0, -1);
+	gtk_text_buffer_get_start_iter(textDescriptionBuffer,&begin);
+	gtk_text_buffer_get_end_iter(textDescriptionBuffer,&end);
+	gtk_text_buffer_delete (textDescriptionBuffer, &begin, &end);
 
 	return;
 }
@@ -56,7 +60,6 @@ static void Init (void)
 static void PopulateListBox (int deviceId)
 {
 	Device  *device;
-	gint    position = 0;
 	char    *string;
 	char    *tempString;
 	int     configNum;
@@ -64,6 +67,8 @@ static void PopulateListBox (int deviceId)
 	int     endpointNum;
 	int     deviceNumber = (deviceId >> 8);
 	int     busNumber = (deviceId & 0x00ff);
+	GtkTextIter begin;
+	GtkTextIter end;
 
 	device = usb_find_device (deviceNumber, busNumber);
 	if (device == NULL) {
@@ -72,29 +77,31 @@ static void PopulateListBox (int deviceId)
 	}
 
 	/* clear the textbox */
-	gtk_editable_delete_text (GTK_EDITABLE(textDescription), 0, -1);
+	gtk_text_buffer_get_start_iter(textDescriptionBuffer,&begin);
+	gtk_text_buffer_get_end_iter(textDescriptionBuffer,&end);
+	gtk_text_buffer_delete (textDescriptionBuffer, &begin, &end);
 
 	/* freeze the display */
 	/* this keeps the annoying scroll from happening */
-	gtk_text_freeze (GTK_TEXT (textDescription));
+	gtk_widget_freeze_child_notify(textDescriptionView);
 
 	string = (char *)g_malloc (1000);
 
 	/* add the name to the textbox if we have one*/
 	if (device->name != NULL) {
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), device->name, strlen(device->name), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, device->name,strlen(device->name));
 	}
 
 	/* add the manufacturer if we have one */
 	if (device->manufacturer != NULL) {
 		sprintf (string, "\nManufacturer: %s", device->manufacturer);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 	}
 
 	/* add the serial number if we have one */
 	if (device->serialNumber != NULL) {
 		sprintf (string, "\nSerial Number: %s", device->serialNumber);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 	}
 
 	/* add speed */
@@ -105,24 +112,24 @@ static void PopulateListBox (int deviceId)
 		default :       tempString = "unknown";         break;
 	}
 	sprintf (string, "\nSpeed: %s", tempString);
-	gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+	gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 
 	/* add ports if available */
 	if (device->maxChildren) {
 		sprintf (string, "\nNumber of Ports: %i", device->maxChildren);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 	}
 
 	/* add the bandwidth info if available */
 	if (device->bandwidth != NULL) {
 		sprintf (string, "\nBandwidth allocated: %i / %i (%i%%)", device->bandwidth->allocated, device->bandwidth->total, device->bandwidth->percent);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 
 		sprintf (string, "\nTotal number of interrupt requests: %i", device->bandwidth->numInterruptRequests);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 
 		sprintf (string, "\nTotal number of isochronous requests: %i", device->bandwidth->numIsocRequests);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 	}
 
 	/* add the USB version, device class, subclass, protocol, max packet size, and the number of configurations (if it is there) */
@@ -131,14 +138,14 @@ static void PopulateListBox (int deviceId)
 			 "Maximum Default Endpoint Size: %i\nNumber of Configurations: %i",
 			 device->version, device->class, device->subClass, device->protocol,
 			 device->maxPacketSize, device->numConfigs);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 	}
 
 	/* add the vendor id, product id, and revision number (if it is there) */
 	if (device->vendorId) {
 		sprintf (string, "\nVendor Id: %.4x\nProduct Id: %.4x\nRevision Number: %s",
 			 device->vendorId, device->productId, device->revisionNumber);
-		gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+		gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 	}
 
 	/* display all the info for the configs */
@@ -151,7 +158,7 @@ static void PopulateListBox (int deviceId)
 				 "Attributes: %.2x\n\tMaxPower Needed: %s",
 				 config->configNumber, config->numInterfaces, 
 				 config->attributes, config->maxPower);
-			gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+			gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 
 			/* show all of the interfaces for this config */
 			for (interfaceNum = 0; interfaceNum < MAX_INTERFACES; ++interfaceNum) {
@@ -159,18 +166,18 @@ static void PopulateListBox (int deviceId)
 					DeviceInterface *interface = config->interface[interfaceNum];
 
 					sprintf (string, "\n\n\tInterface Number: %i", interface->interfaceNumber);
-					gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+					gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string, strlen(string));
 
 					if (interface->name != NULL) {
 						sprintf (string, "\n\t\tName: %s", interface->name);
-						gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+						gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string, strlen(string));
 					}
 
 					sprintf (string, "\n\t\tAlternate Number: %i\n\t\tClass: %s\n\t\t"
-						 "Sub Class: %i\n\t\tProtocol: %i\n\t\tNumber of Endpoints: %i",
+						 "Sub Class: %.2x\n\t\tProtocol: %.2x\n\t\tNumber of Endpoints: %i",
 						 interface->alternateNumber, interface->class, 
 						 interface->subClass, interface->protocol, interface->numEndpoints);
-					gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+					gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string, strlen(string));
 
 					/* show all of the endpoints for this interface */
 					for (endpointNum = 0; endpointNum < MAX_ENDPOINTS; ++endpointNum) {
@@ -183,7 +190,7 @@ static void PopulateListBox (int deviceId)
 								 endpoint->address, 
 								 endpoint->in ? "in" : "out", endpoint->attribute,
 								 endpoint->type, endpoint->maxPacketSize, endpoint->interval);
-							gtk_editable_insert_text (GTK_EDITABLE(textDescription), string, strlen(string), &position);
+							gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 						}
 					}
 				}
@@ -191,11 +198,8 @@ static void PopulateListBox (int deviceId)
 		}
 	}
 
-	/* throw the cursor back to the top so the user sees the top first */
-	gtk_editable_set_position (GTK_EDITABLE(textDescription), 0);
-
 	/* thaw the display */
-	gtk_text_thaw (GTK_TEXT (textDescription));
+	gtk_widget_thaw_child_notify(textDescriptionView);
 
 	/* clean up our string */
 	g_free (string);
@@ -349,7 +353,7 @@ void LoadUSBTree (int refresh)
 	dataLine = (char *)g_malloc (MAX_LINE_SIZE);
 	while (!finished) {
 		/* read the line in from the file */
-		fgets (dataLine, MAX_LINE_SIZE, usbFile);
+		fgets (dataLine, MAX_LINE_SIZE-1, usbFile);
 
 		if (dataLine[strlen(dataLine)-1] == '\n')
 			usb_parse_line (dataLine);
@@ -358,6 +362,7 @@ void LoadUSBTree (int refresh)
 			finished = 1;
 	}
 
+	fclose (usbFile);
 	g_free (dataLine);
 
 	usb_name_devices ();

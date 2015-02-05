@@ -4,8 +4,7 @@
 **
 **  This program is free software; you can redistribute it and/or modify
 **  it under the terms of the GNU General Public License as published by
-**  the Free Software Foundation; either version 2 of the License, or
-**  (at your option) any later version.
+**  the Free Software Foundation; either version 2 of the License.
 **
 **  This program is distributed in the hope that it will be useful,
 **  but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -24,7 +23,8 @@
 
 extern gchar		devicesFile[1000];
 extern GtkWidget	*treeUSB;
-extern GtkWidget	*textDescription;
+extern GtkWidget	*textDescriptionView;
+extern GtkTextBuffer	*textDescriptionBuffer;
 
 extern void	LoadUSBTree		(int refresh);
 extern void	initialize_stuff	(void);
