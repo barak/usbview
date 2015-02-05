@@ -2,3 +2,14 @@
 
 %:
 	dh $@ --with autoreconf --parallel
+
+override_dh_install: debian/icons/32x32/usbview.xpm debian/icons/64x64/usbview.xpm
+	dh_install
+
+debian/icons/64x64/usbview.xpm: usb_icon.xpm
+	mkdir -p $$(dirname $@)
+	cp $< $@
+
+debian/icons/32x32/usbview.xpm: usb_icon.xpm
+	mkdir -p $$(dirname $@)
+	convert -geometry 32x32 $< $@

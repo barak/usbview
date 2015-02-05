@@ -6,6 +6,7 @@ Standards-Version: 3.9.6
 Homepage: http://www.kroah.com/linux-usb/
 Build-Depends: debhelper (>= 9),
 		dh-autoreconf, autoconf-archive,
+		imagemagick,
 		libgtk-3-dev
 Vcs-Git: git://github.com/barak/usbview.git
 Vcs-Browser: https://github.com/barak/usbview
