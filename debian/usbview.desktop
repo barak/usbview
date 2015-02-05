@@ -3,5 +3,5 @@ Name=usbview
 Comment=View USB devices attached to system
 Exec=/usr/bin/usbview
 Terminal=false
-MultipleArgs=false
 Type=Application
+Categories=GTK;System;HardwareSettings
