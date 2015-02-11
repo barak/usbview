@@ -3,11 +3,10 @@
 %:
 	dh $@ --with autoreconf --parallel
 
-bitmaps=debian/icons/32x32/usbview.xpm debian/icons/64x64/usbview.png
+bitmap = debian/usbview.xpm
 
-override_dh_install: $(bitmaps)
+override_dh_install: $(bitmap)
 	dh_install
 
-$(bitmaps): debian/usbview.svg
-	mkdir -p $$(dirname $@)
-	convert -geometry $$(basename $$(dirname $@)) $< $@
+$(bitmap): hicolor/32x32/apps/usbview.png
+	convert -geometry 32x32 $< $@
