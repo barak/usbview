@@ -1,3 +1,20 @@
+usbview (2.0-3~1) UNRELEASED; urgency=medium
+
+  * Simplify debian packaging scripts
+  * Shorten debian/rules via dh9
+  * Remove debian/usbview.dirs
+  * Bump policy
+  * Add autoconf-related build dependencies
+  * debian/source/local-options: single-debian-patch source option to
+    allow painless use of git
+  * debian/.gitignore for debian debris
+  * Add debian/watch from Debian QA group
+  * Merge tweaks to upstream
+  * Use upstream desktop, icon, and man page installation support
+  * Generate and install 32x32 xpm file, for menu support
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 23 Feb 2015 08:51:56 +0000
+
 usbview (2.0-2) unstable; urgency=low
 
   * Policy 3.9.4.
