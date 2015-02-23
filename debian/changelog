@@ -1,3 +1,18 @@
+usbview (2.0-21-g6fe2f4f-2) UNRELEASED; urgency=medium
+
+  * debian/source/local-options: single-debian-patch source option
+  * Add debian/watch from Debian QA group
+  * Allow upstream to install desktop, icon, manpage (closes: #565294),
+    remove said from debian/
+  * Install policykit file
+  * Bump policy version
+  * Remove debian/*.menu per policy
+  * Convert debian/copyright to standard format
+  * Debhelper 10
+  * Bounce desktop launch off a /usr/bin/usbview-pkexec trampoline
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 07 Feb 2017 05:28:28 +0100
+
 usbview (2.0-21-g6fe2f4f-1) unstable; urgency=low
 
   * New upstream snapshot (closes: #849000).
