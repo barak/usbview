@@ -1,3 +1,15 @@
+usbview (2.0-3) unstable; urgency=low
+
+  * Lots of changes, mostly from Barak A. Pearlmutter <barak@cs.nuim.ie> 
+    with changelog and tweaks from me (closes: #777603).
+  * Convert icon to svg format.
+  * Make menu entries use su-wrapper.
+  * Cleanups to desktop file to bring it up to modern standards,
+    including providing keywords.
+  * Convert to use dh and use autoreconf.
+
+ -- Mark Brown <broonie@debian.org>  Sat, 25 Apr 2015 12:45:36 +0100
+
 usbview (2.0-2) unstable; urgency=low
 
   * Policy 3.9.4.

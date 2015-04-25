@@ -1,7 +1,9 @@
 [Desktop Entry]
-Name=usbview
+Name=USBView
 Comment=View USB devices attached to system
-Exec=/usr/bin/usbview
+Exec=su-to-root -X -c /usr/bin/usbview
+Icon=usbview
 Terminal=false
 Type=Application
-Categories=GTK;System;HardwareSettings
+Keywords=USB;devices;connected;removable;
+Categories=GTK;HardwareSettings;Settings;
