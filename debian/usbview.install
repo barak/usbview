@@ -1,2 +1,3 @@
 debian/usbview.xpm /usr/share/icons/hicolor/32x32/apps/
 org.freedesktop.pkexec.usbview.policy /usr/share/polkit-1/actions/
+debian/usbview-pkexec /usr/bin/
