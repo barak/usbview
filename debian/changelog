@@ -9,8 +9,9 @@ usbview (2.0-4~1) UNRELEASED; urgency=medium
   * Bump policy version
   * Convert debian/copyright to new standard format
   * Debhelper 10
+  * Bounce desktop launch off a /usr/bin/usbview-pkexec trampoline
 
- -- Barak A. Pearlmutter <bap@debian.org>  Wed, 21 Dec 2016 16:07:07 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Wed, 21 Dec 2016 16:31:59 +0000
 
 usbview (2.0-3) unstable; urgency=low
 
