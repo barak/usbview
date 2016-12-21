@@ -3,9 +3,14 @@ usbview (2.0-4~1) UNRELEASED; urgency=medium
   * Merge tweaks to upstream
   * debian/source/local-options: single-debian-patch source option
   * Add debian/watch from Debian QA group
-  * Use upstream desktop, icon, and man page installation support
+  * Allow upstream to install desktop, icon, manpage (closes: #565294),
+    remove said from debian/
+  * Install policykit file
+  * Bump policy version
+  * Convert debian/copyright to new standard format
+  * Debhelper 10
 
- -- Barak A. Pearlmutter <bap@debian.org>  Mon, 27 Apr 2015 17:20:18 +0100
+ -- Barak A. Pearlmutter <bap@debian.org>  Wed, 21 Dec 2016 16:07:07 +0000
 
 usbview (2.0-3) unstable; urgency=low
 
