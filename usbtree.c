@@ -104,10 +104,20 @@ static void PopulateListBox (int deviceId)
 	switch (device->speed) {
 		case 1 :        tempString = "1.5Mb/s (low)";   break;
 		case 12 :       tempString = "12Mb/s (full)";   break;
-		case 480 :      tempString = "480Mb/s (high)";  break;		/* planning ahead... */
+		case 480 :      tempString = "480Mb/s (high)";  break;
+		case 5000 :     tempString = "5Gb/s (super)";   break;
+		case 10000 :    tempString = "10Gb/s (super+)"; break;
 		default :       tempString = "unknown";         break;
 	}
 	sprintf (string, "\nSpeed: %s", tempString);
+	gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
+
+	/* Add Bus number */
+	sprintf (string, "\nBus:%4d", busNumber);
+	gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
+
+	/* Add device address */
+	sprintf (string, "\nAddress:%4d", deviceNumber);
 	gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string,strlen(string));
 
 	/* add ports if available */
@@ -330,7 +340,6 @@ void LoadUSBTree (int refresh)
 	static gboolean signal_connected = FALSE;
 	FILE            *usbFile;
 	char            *dataLine;
-	int             finished;
 	int             i;
 
 	/* if refresh is selected, then always do a refresh, otherwise look at the file first */
@@ -345,22 +354,17 @@ void LoadUSBTree (int refresh)
 		FileError();
 		return;
 	}
-	finished = 0;
 
 	Init();
 
 	usb_initialize_list ();
 
 	dataLine = (char *)g_malloc (MAX_LINE_SIZE);
-	while (!finished) {
-		/* read the line in from the file */
-		fgets (dataLine, MAX_LINE_SIZE-1, usbFile);
-
-		if (dataLine[strlen(dataLine)-1] == '\n')
-			usb_parse_line (dataLine);
-
-		if (feof (usbFile))
-			finished = 1;
+	/* read and parse lines from the file one by one */
+	while (!feof (usbFile)
+	       && fgets (dataLine, MAX_LINE_SIZE-1, usbFile) != NULL
+	       && dataLine[strlen(dataLine)-1] == '\n') {
+		usb_parse_line (dataLine);
 	}
 
 	fclose (usbFile);

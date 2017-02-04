@@ -1,3 +1,9 @@
+usbview (2.0-21-g6fe2f4f-1) unstable; urgency=low
+
+  * New upstream snapshot (closes: #849000).
+
+ -- Mark Brown <broonie@debian.org>  Sat, 04 Feb 2017 12:24:40 +0100
+
 usbview (2.0-3) unstable; urgency=low
 
   * Lots of changes, mostly from Barak A. Pearlmutter <barak@cs.nuim.ie> 
