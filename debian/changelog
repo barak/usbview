@@ -1,3 +1,12 @@
+usbview (2.0-21-g6fe2f4f-2) unstable; urgency=low
+
+   * Add build dependency on librsvg2-bin since the imagemagick
+     maintainers appear to have decided to require that, sadly
+     there's been no communication about this transition so hopefully
+     that's all that's needed (closes: #897573, #879888).
+
+ -- Mark Brown <broonie@debian.org>  Mon, 04 Jun 2018 10:52:41 +0100
+
 usbview (2.0-21-g6fe2f4f-1) unstable; urgency=low
 
   * New upstream snapshot (closes: #849000).
