@@ -1,3 +1,11 @@
+usbview (2.0-21-g6fe2f4f-2.1) unstable; urgency=high
+
+  * Non-maintainer upload.
+  * Fix authorization for inactive or arbitrary other users (CVE-2022-23220)
+  * Pass on the command line parameters to GTK only if not invoked via pkexec
+
+ -- Salvatore Bonaccorso <carnil@debian.org>  Sat, 15 Jan 2022 13:42:37 +0100
+
 usbview (2.0-21-g6fe2f4f-2) unstable; urgency=low
 
    * Add build dependency on librsvg2-bin since the imagemagick
