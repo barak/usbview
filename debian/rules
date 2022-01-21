@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --parallel
+	dh $@
 
 bitmaps=debian/icons/32x32/usbview.xpm debian/icons/64x64/usbview.png
 
