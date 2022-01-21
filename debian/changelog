@@ -2,6 +2,7 @@ usbview (2.2-1) UNRELEASED; urgency=medium
 
   * Uscan support
   * New upstream version
+  * Trim trailing whitespace.
 
  -- Barak A. Pearlmutter <bap@debian.org>  Fri, 21 Jan 2022 15:44:21 +0000
 
@@ -30,7 +31,7 @@ usbview (2.0-21-g6fe2f4f-1) unstable; urgency=low
 
 usbview (2.0-3) unstable; urgency=low
 
-  * Lots of changes, mostly from Barak A. Pearlmutter <barak@cs.nuim.ie> 
+  * Lots of changes, mostly from Barak A. Pearlmutter <barak@cs.nuim.ie>
     with changelog and tweaks from me (closes: #777603).
   * Convert icon to svg format.
   * Make menu entries use su-wrapper.
@@ -51,7 +52,7 @@ usbview (2.0-2) unstable; urgency=low
 usbview (2.0-1) unstable; urgency=low
 
   * New upstream release (closes: #691232).
-  * Updated for current kernel ABIs (closes: #451191, #599162). 
+  * Updated for current kernel ABIs (closes: #451191, #599162).
 
  -- Mark Brown <broonie@debian.org>  Wed, 21 Nov 2012 16:40:38 +0900
 
@@ -154,4 +155,3 @@ usbview (0.7.0-1) unstable; urgency=low
   * New upstream version.
 
  -- Raphael Bossek <bossekr@debian.org>  Sun,  9 Jan 2000 12:10:40 +0100
-
