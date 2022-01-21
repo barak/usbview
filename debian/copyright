@@ -1,17 +1,30 @@
-This is the Debian GNU/Linux packaged version of usbview version 0.7.0.
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: USBView
+Upstream-Contact: Greg Kroah-Hartman <greg@kroah.com>
+Source: https://github.com/gregkh/usbview
 
-The developer of this software is Greg Kroah-Hartman <greg@kroah.com>.
+Files: *
+Copyright: 1999-2012, 2021-2022, Greg Kroah-Hartman <gregkh@suse.de>
+License: GPL-2
 
-It was put together by Raphael Bossek <bossekr@debian.org>
-from the following sources:
+Files: debian/*
+Copyright: 2000, Raphael Bossek <bossekr@debian.org>
+           2001-2018, Mark Brown <broonie@debian.org>
+	   2022, Barak A. Pearlmutter <bap@debian.org>
+License: GPL-2
 
-  http://www.kroah.com/linux-usb/usbview-0.7.0.tar.gz
-
-Changes:
-  * Added Debian GNU/Linux packaging files.
-
-This software is released under the terms of the GNU General Public License
-v2.
-
-On Debian systems, the complete text of the GNU General Public License v2
-can be found in /usr/share/common-licenses/GPL-2.
+License: GPL-2
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, version 2.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the full text of the GNU General Public License
+ version 2 can be found in the file `/usr/share/common-licenses/GPL-2'.
