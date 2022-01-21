@@ -1,2 +1,1 @@
-CVE-2022-23220-usbview.policy.patch
-pkexec-hardening.patch
+0001-desktop-usbview-pkexec.patch
