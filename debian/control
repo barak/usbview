@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Mark Brown <broonie@debian.org>
 Standards-Version: 3.9.6
 Homepage: http://www.kroah.com/linux-usb/
-Build-Depends: debhelper (>= 13~), dh-autoreconf, autoconf-archive,
+Build-Depends: debhelper-compat (= 13), dh-autoreconf, autoconf-archive,
   imagemagick, libmagickcore-6.q16-2-extra, libgtk-3-dev, librsvg2-bin
 X-Vcs-Upstream-Git: git://github.com/gregkh/usbview.git
 
