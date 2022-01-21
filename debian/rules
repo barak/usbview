@@ -4,12 +4,3 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh $@
-
-bitmaps=debian/icons/32x32/usbview.xpm debian/icons/64x64/usbview.png
-
-override_dh_install: $(bitmaps)
-	dh_install
-
-$(bitmaps): debian/usbview.svg
-	mkdir -p $$(dirname $@)
-	convert -geometry $$(basename $$(dirname $@)) $< $@
