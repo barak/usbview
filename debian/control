@@ -13,6 +13,7 @@ X-Vcs-Upstream-Git: https://github.com/gregkh/usbview.git
 Package: usbview
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Recommends: policykit-1
 Suggests: usbutils
 Description: USB device viewer
  USBView is a small GTK+ application to show what the device tree of
