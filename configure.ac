@@ -3,10 +3,11 @@ dnl Process this file with autoconf to produce a configure script.
 # Prologue.
 
 AC_PREREQ([2.69])
-AC_INIT([USBView],[2.0],[Greg Kroah-Hartman <greg@kroah.com>],[usbview],[http://www.kroah.com/linux-usb/])
+AC_INIT([USBView],[2.1],[Greg Kroah-Hartman <greg@kroah.com>],[usbview],[http://www.kroah.com/linux-usb/])
 AC_CONFIG_SRCDIR([usbtree.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign subdir-objects -Wall])
+m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 # Process options.
 
@@ -34,20 +35,14 @@ AC_MSG_RESULT([$polkit])
 # Checks for programs.
 
 AC_PROG_CC
-AX_CFLAGS_WARN_ALL
-AC_CHECK_PROG([have_inkscape],[inkscape],[yes],[no])
 AC_CHECK_PROG([have_convert],[convert],[yes],[no])
 
 # Set automake conditionals.
 
-AC_SUBST(INKSCAPE,[inkscape])
 AC_SUBST(CONVERT,[convert])
-AM_CONDITIONAL(USE_INKSCAPE,[test "$have_inkscape" = "yes"])
-AM_CONDITIONAL(USE_CONVERT, [test "$have_inkscape" = "no" && test "$have_convert" = "yes"])
-AM_CONDITIONAL(HAVE_INKSCAPE,[test "$have_inkscape" = "yes"])
 AM_CONDITIONAL(HAVE_CONVERT, [test "$have_convert" = "yes"])
 
-AS_IF([test "$have_inkscape" = "no" && test "$have_convert" = "no"],
+AS_IF([test "$have_convert" = "no"],
       [AC_MSG_WARN([no bitmap conversion utility, disabling icon installation])
        icons=no])
 
@@ -69,8 +64,6 @@ AC_CHECK_HEADERS([ctype.h errno.h stdio.h],,
 
 # Checks for typedefs, structures, and compiler characteristics.
 
-AX_CFLAGS_WARN_ALL
-
 # Checks for library functions.
 
 AC_CHECK_FUNCS([memset strstr strtol],,
@@ -80,3 +73,16 @@ AC_CHECK_FUNCS([memset strstr strtol],,
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
+AC_MSG_RESULT([
+	usbview $VERSION
+	===========
+
+	prefix:                 ${prefix}
+	datarootdir:            ${datarootdir}
+	datadir:                ${datadir}
+	mandir:                 ${mandir}
+
+	compiler:               ${CC}
+	cflags:                 ${CFLAGS}
+	ldflags:                ${LDFLAGS}
+])
