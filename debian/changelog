@@ -1,7 +1,7 @@
-usbview (2.2-1) UNRELEASED; urgency=medium
+usbview (3.0-1) UNRELEASED; urgency=medium
 
   * Uscan support
-  * New upstream version (closes: #341647, #1004138, #1004160)
+  * New upstream version 2.2 (closes: #341647, #1004138, #1004160)
     - includes 2.0-21-g6fe2f4f-2.1 patches; remove from series
   * Trim trailing whitespace.
   * Bump debhelper from deprecated 9 to 13.
@@ -19,11 +19,13 @@ usbview (2.2-1) UNRELEASED; urgency=medium
   * Upstream has desktop file; remove debian/*.desktop
   * Upstream has icons (bitmap & svg); remove icons from debian/
   * Upstream installs man page; no need to do so in debian/
-  * Need pkexec, in policykit-1, for Exec line in desktop file
-  * Desktop trampoline via /usr/bin/usbview-pkexec for $(DISPLAY)
   * Remove upstreamed security patches
+  * New upstream version 3.0
+    - does not require any privs, so drop policykit stuff like pkexec
+    - quilt patch for issue in upstream .desktop file
+    - remove upstream's now-obsolete policykit action file
 
- -- Barak A. Pearlmutter <bap@debian.org>  Sat, 22 Jan 2022 10:11:30 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Sat, 22 Jan 2022 14:42:27 +0000
 
 usbview (2.0-21-g6fe2f4f-2.1) unstable; urgency=high
 
