@@ -1,9 +1,11 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (c) 2022 Greg Kroah-Hartman <greg@kroah.com>
 dnl Process this file with autoconf to produce a configure script.
 
 # Prologue.
 
 AC_PREREQ([2.69])
-AC_INIT([USBView],[2.2],[Greg Kroah-Hartman <greg@kroah.com>],[usbview],[http://www.kroah.com/linux-usb/])
+AC_INIT([USBView],[3.0],[Greg Kroah-Hartman <greg@kroah.com>],[usbview],[http://www.kroah.com/linux-usb/])
 AC_CONFIG_SRCDIR([usbtree.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign subdir-objects -Wall])

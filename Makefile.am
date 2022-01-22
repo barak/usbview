@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (c) 2022 Greg Kroah-Hartman <greg@kroah.com>
+#
 ## Process this file with automake to produce Makefile.in
 
 AM_CPPFLAGS = $(GTK_CFLAGS)
@@ -12,8 +15,13 @@ usbview_SOURCES =		\
 	interface.c		\
 	callbacks.c		\
 	usbtree.c usbtree.h	\
-	usbparse.c usbparse.h	\
-	configure-dialog.c      \
+	sysfs.c sysfs.h		\
+	ccan/check_type/check_type.h	\
+	ccan/str/str.h			\
+	ccan/str/str_debug.h		\
+	ccan/config.h			\
+	ccan/container_of/container_of.h\
+	ccan/list/list.h		\
 	usbview_logo.xpm
 
 interface.o: $(icon_bitmaps_xpm)

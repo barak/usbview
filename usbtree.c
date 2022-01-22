@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * usbtree.c for USBView - a USB device viewer
- * Copyright (c) 1999, 2000, 2021 by Greg Kroah-Hartman, <greg@kroah.com>
+ * Copyright (c) 1999, 2000, 2021-2022 by Greg Kroah-Hartman, <greg@kroah.com>
  */
 #ifdef HAVE_CONFIG_H
 	#include <config.h>
@@ -17,7 +17,7 @@
 #include <gtk/gtk.h>
 
 #include "usbtree.h"
-#include "usbparse.h"
+#include "sysfs.h"
 
 #define MAX_LINE_SIZE	1000
 
@@ -43,7 +43,7 @@ static void Init (void)
 
 static void PopulateListBox (int deviceId)
 {
-	Device  *device;
+	struct Device *device;
 	char    *string;
 	char    *tempString;
 	int     configNum;
@@ -145,7 +145,7 @@ static void PopulateListBox (int deviceId)
 	/* display all the info for the configs */
 	for (configNum = 0; configNum < MAX_CONFIGS; ++configNum) {
 		if (device->config[configNum]) {
-			DeviceConfig    *config = device->config[configNum];
+			struct DeviceConfig *config = device->config[configNum];
 
 			/* show this config */
 			sprintf (string, "\n\nConfig Number: %i\n\tNumber of Interfaces: %i\n\t"
@@ -157,7 +157,7 @@ static void PopulateListBox (int deviceId)
 			/* show all of the interfaces for this config */
 			for (interfaceNum = 0; interfaceNum < MAX_INTERFACES; ++interfaceNum) {
 				if (config->interface[interfaceNum]) {
-					DeviceInterface *interface = config->interface[interfaceNum];
+					struct DeviceInterface *interface = config->interface[interfaceNum];
 
 					sprintf (string, "\n\n\tInterface Number: %i", interface->interfaceNumber);
 					gtk_text_buffer_insert_at_cursor(textDescriptionBuffer, string, strlen(string));
@@ -176,7 +176,7 @@ static void PopulateListBox (int deviceId)
 					/* show all of the endpoints for this interface */
 					for (endpointNum = 0; endpointNum < MAX_ENDPOINTS; ++endpointNum) {
 						if (interface->endpoint[endpointNum]) {
-							DeviceEndpoint  *endpoint = interface->endpoint[endpointNum];
+							struct DeviceEndpoint *endpoint = interface->endpoint[endpointNum];
 
 							sprintf (string, "\n\n\t\t\tEndpoint Address: %.2x\n\t\t\t"
 								 "Direction: %s\n\t\t\tAttribute: %i\n\t\t\t"
@@ -217,7 +217,7 @@ static void SelectItem (GtkTreeSelection *selection, gpointer userData)
 }
 
 
-static void DisplayDevice (Device *parent, Device *device)
+static void DisplayDevice (struct Device *parent, struct Device *device)
 {
 	int		i;
 	int		configNum;
@@ -237,10 +237,10 @@ static void DisplayDevice (Device *parent, Device *device)
 	/* determine if this device has drivers attached to all interfaces */
 	for (configNum = 0; configNum < MAX_CONFIGS; ++configNum) {
 		if (device->config[configNum]) {
-			DeviceConfig    *config = device->config[configNum];
+			struct DeviceConfig *config = device->config[configNum];
 			for (interfaceNum = 0; interfaceNum < MAX_INTERFACES; ++interfaceNum) {
 				if (config->interface[interfaceNum]) {
-					DeviceInterface *interface = config->interface[interfaceNum];
+					struct DeviceInterface *interface = config->interface[interfaceNum];
 					if (interface->driverAttached == FALSE) {
 						driverAttached = FALSE;
 						break;
@@ -269,95 +269,16 @@ static void DisplayDevice (Device *parent, Device *device)
 }
 
 
-#define FILENAME_SIZE	1000;
-
-gchar devicesFile[1000];
-static gchar previousDevicesFile[1000];
-static time_t	previousChange;
-
-const char *verifyMessage =     " Verify that you have USB compiled into your kernel, \n"
-				" have the USB core modules loaded, and have the \n"
-				" usbdevfs filesystem mounted. ";
-
-static void FileError (void)
-{
-	GtkWidget *dialog;
-
-	dialog = gtk_message_dialog_new (
-				    GTK_WINDOW (windowMain),
-				    GTK_DIALOG_DESTROY_WITH_PARENT,
-				    GTK_MESSAGE_ERROR, GTK_BUTTONS_CLOSE,
-				    "Can not open the file %s\n\n%s",
-				    devicesFile, verifyMessage);
-	gtk_dialog_run (GTK_DIALOG (dialog));
-	gtk_widget_destroy (dialog);
-}
-
-
-static int FileHasChanged (void)
-{
-	struct stat	file_info;
-	int		result;
-
-	if (strcmp (previousDevicesFile, devicesFile) == 0) {
-		/* we've looked at this filename before, so check the file time of the file */
-		result = stat (devicesFile, &file_info);
-		if (result) {
-			/* something wrong in looking for this file */
-			return 0;
-		}
-		
-		if (file_info.st_ctime == previousChange) {
-			/* no change */
-			return 0;
-		} else {
-			/* something changed */
-			previousChange = file_info.st_ctime;
-			return 1;
-		}
-	} else {
-		/* filenames are different, so save the name for the next time */
-		strcpy (previousDevicesFile, devicesFile);
-		return 1;
-	}
-}
-
-
 void LoadUSBTree (int refresh)
 {
 	static gboolean signal_connected = FALSE;
-	FILE            *usbFile;
-	char            *dataLine;
 	int             i;
-
-	/* if refresh is selected, then always do a refresh, otherwise look at the file first */
-	if (!refresh) {
-		if (!FileHasChanged()) {
-			return;
-		}
-	}
-
-	usbFile = fopen (devicesFile, "r");
-	if (usbFile == NULL) {
-		FileError();
-		return;
-	}
 
 	Init();
 
 	usb_initialize_list ();
 
-	dataLine = (char *)g_malloc (MAX_LINE_SIZE);
-	/* read and parse lines from the file one by one */
-	while (!feof (usbFile)
-	       && fgets (dataLine, MAX_LINE_SIZE-1, usbFile) != NULL
-	       && dataLine[strlen(dataLine)-1] == '\n') {
-		usb_parse_line (dataLine);
-	}
-
-	fclose (usbFile);
-	g_free (dataLine);
-
+	sysfs_parse();
 	usb_name_devices ();
 
 	/* build our tree */
@@ -381,14 +302,8 @@ void LoadUSBTree (int refresh)
 	return;
 }
 
-
-
-void initialize_stuff (void)
+void initialize_stuff(void)
 {
-	strcpy (devicesFile, "/sys/kernel/debug/usb/devices");
-	memset (&previousDevicesFile[0], 0x00, sizeof(previousDevicesFile));
-	previousChange = 0;
-
 	return;
 }
 
