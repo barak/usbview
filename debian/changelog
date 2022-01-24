@@ -1,4 +1,4 @@
-usbview (3.0-1) UNRELEASED; urgency=medium
+usbview (3.0-1) unstable; urgency=medium
 
   * Uscan support
   * New upstream version 2.2 (closes: #341647, #1004138, #1004160)
@@ -24,9 +24,10 @@ usbview (3.0-1) UNRELEASED; urgency=medium
     - does not require any privs, so drop policykit stuff like pkexec
     - quilt patch for issue in upstream .desktop file
   * Track upstream for pkexecectomy
-  * Rules Require Root, Not
+  * Rules do not require root
+  * Add self as comaintainer
 
- -- Barak A. Pearlmutter <bap@debian.org>  Mon, 24 Jan 2022 21:14:01 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 24 Jan 2022 21:15:29 +0000
 
 usbview (2.0-21-g6fe2f4f-2.1) unstable; urgency=high
 
