@@ -23,9 +23,9 @@ usbview (3.0-1) UNRELEASED; urgency=medium
   * New upstream version 3.0
     - does not require any privs, so drop policykit stuff like pkexec
     - quilt patch for issue in upstream .desktop file
-    - remove upstream's now-obsolete policykit action file
+  * Track upstream for pkexecectomy
 
- -- Barak A. Pearlmutter <bap@debian.org>  Sat, 22 Jan 2022 14:42:27 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 24 Jan 2022 13:11:44 +0000
 
 usbview (2.0-21-g6fe2f4f-2.1) unstable; urgency=high
 
