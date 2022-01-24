@@ -24,8 +24,9 @@ usbview (3.0-1) UNRELEASED; urgency=medium
     - does not require any privs, so drop policykit stuff like pkexec
     - quilt patch for issue in upstream .desktop file
   * Track upstream for pkexecectomy
+  * Rules Require Root, Not
 
- -- Barak A. Pearlmutter <bap@debian.org>  Mon, 24 Jan 2022 15:42:38 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 24 Jan 2022 21:14:01 +0000
 
 usbview (2.0-21-g6fe2f4f-2.1) unstable; urgency=high
 
