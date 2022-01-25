@@ -1,8 +1,10 @@
 usbview (3.0-2) unstable; urgency=medium
 
   * Patch to #define PATH_MAX, for GNU/Hurd
+  * Fully adopt package, per email from Mark Brown, who maintained this
+    package for two decades of USB viewing!
 
- -- Barak A. Pearlmutter <bap@debian.org>  Tue, 25 Jan 2022 14:14:04 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 25 Jan 2022 14:17:01 +0000
 
 usbview (3.0-1) unstable; urgency=medium
 
