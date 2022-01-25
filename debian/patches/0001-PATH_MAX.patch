@@ -1,0 +1,27 @@
+From: "Barak A. Pearlmutter" <barak+git@pearlmutter.net>
+Date: Tue, 25 Jan 2022 14:13:19 +0000
+Subject: PATH_MAX
+
+PATH_MAX is not defined in GNU Hurd.
+For our purposes here, 1000 is way more than sufficient.
+But ideally, dynamic allocation would be used...
+---
+ sysfs.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/sysfs.c b/sysfs.c
+index 89c38f0..62f6764 100644
+--- a/sysfs.c
++++ b/sysfs.c
+@@ -26,6 +26,11 @@
+ #include "sysfs.h"
+ #include "ccan/list/list.h"
+ 
++// PATH_MAX is not defined in GNU Hurd. Here, 1000 is way more than sufficient.
++#ifndef PATH_MAX
++#define PATH_MAX 1000
++#endif
++
+ struct Device *rootDevice = NULL;
+ static struct DeviceBandwidth *currentBandwidth = NULL;
+ 
