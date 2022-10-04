@@ -1,6 +1,7 @@
 usbview (3.0-3) UNRELEASED; urgency=medium
 
   * debian/copyright: use spaces rather than tabs to start continuation lines.
+  * Update standards version to 4.6.1, no changes needed.
 
  -- Barak A. Pearlmutter <bap@debian.org>  Tue, 04 Oct 2022 13:27:15 -0000
 
