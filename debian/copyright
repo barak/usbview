@@ -10,7 +10,7 @@ License: GPL-2
 Files: debian/*
 Copyright: 2000, Raphael Bossek <bossekr@debian.org>
            2001-2018, Mark Brown <broonie@debian.org>
-	   2022, Barak A. Pearlmutter <bap@debian.org>
+           2022, Barak A. Pearlmutter <bap@debian.org>
 License: GPL-2
 
 License: GPL-2
