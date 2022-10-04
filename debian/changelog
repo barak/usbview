@@ -1,9 +1,14 @@
-usbview (3.0-3) UNRELEASED; urgency=medium
+usbview (3.0-3) unstable; urgency=medium
 
   * debian/copyright: use spaces rather than tabs to start continuation lines.
   * Update standards version to 4.6.1, no changes needed.
+  * Merge minor fixes until merged upstream:
+    - "Add AppStream metadata"
+       https://github.com/gregkh/usbview/pull/27
+    - "Display correctly when a dark GTK+ theme is used"
+       https://github.com/gregkh/usbview/pull/27
 
- -- Barak A. Pearlmutter <bap@debian.org>  Tue, 04 Oct 2022 13:27:15 -0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Tue, 04 Oct 2022 13:31:41 +0100
 
 usbview (3.0-2) unstable; urgency=medium
 
