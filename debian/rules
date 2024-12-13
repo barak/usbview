@@ -4,7 +4,3 @@ export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh $@
-
-override_dh_auto_configure:
-	@echo "Policykit support is now unnecessary and should be removed upstream."
-	dh_auto_configure -- --disable-polkit
