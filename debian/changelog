@@ -2,8 +2,9 @@ usbview (3.1-2) unstable; urgency=medium
 
   * Remove obsolete build option disabling polkit
   * Remove obsolete build dependencies (closes: 1089848)
+  * Update standards version to 4.7.0, no changes needed.
 
- -- Barak A. Pearlmutter <bap@debian.org>  Fri, 13 Dec 2024 21:48:17 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Fri, 13 Dec 2024 22:04:53 +0000
 
 usbview (3.1-1) unstable; urgency=medium
 
