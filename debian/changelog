@@ -1,3 +1,12 @@
+usbview (3.1-3) unstable; urgency=medium
+
+  * Track upstream
+    - support for SuperSpeed+ (20Gb/s) in the speed field
+    - transparent hi-res icon
+  * Bump policy
+
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 11 Aug 2025 02:28:35 +0100
+
 usbview (3.1-2) unstable; urgency=medium
 
   * Remove obsolete build option disabling polkit
