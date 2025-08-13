@@ -291,7 +291,7 @@ void LoadUSBTree (int refresh)
 		DisplayDevice (rootDevice, rootDevice->child[i]);
 	}
 
-	gtk_widget_show (treeUSB);
+	gtk_widget_set_visible (treeUSB, TRUE);
 
 	gtk_tree_view_expand_all (GTK_TREE_VIEW (treeUSB));
 

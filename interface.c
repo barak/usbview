@@ -52,6 +52,8 @@ create_windowMain ()
 
 	hpaned1 = gtk_paned_new (GTK_ORIENTATION_HORIZONTAL);
 	gtk_widget_set_name (hpaned1, "hpaned1");
+	gtk_widget_set_hexpand (hpaned1, TRUE);
+	gtk_widget_set_vexpand (hpaned1, TRUE);
 	gtk_box_append (GTK_BOX (vbox1), hpaned1);
 
 	treeStore = gtk_tree_store_new (N_COLUMNS,
@@ -73,10 +75,14 @@ create_windowMain ()
 	);
 
 	gtk_widget_set_name (treeUSB, "treeUSB");
+	gtk_widget_set_hexpand (treeUSB, TRUE);
+	gtk_widget_set_vexpand (treeUSB, TRUE);
 	gtk_paned_set_start_child (GTK_PANED (hpaned1), treeUSB);
 
 	scrolledwindow1 = gtk_scrolled_window_new ();
 	gtk_widget_set_name (scrolledwindow1, "scrolledwindow1");
+	gtk_widget_set_hexpand (scrolledwindow1, TRUE);
+	gtk_widget_set_vexpand (scrolledwindow1, TRUE);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
 	gtk_paned_set_end_child (GTK_PANED (hpaned1), scrolledwindow1);
 
@@ -90,6 +96,7 @@ create_windowMain ()
 
 	hbuttonbox1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 	gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
+	gtk_widget_set_halign (hbuttonbox1, GTK_ALIGN_END);
 	gtk_box_append (GTK_BOX (vbox1), hbuttonbox1);
 	//gtk_button_box_set_spacing (GTK_BUTTON_BOX (hbuttonbox1), 10);
 	//gtk_button_box_set_child_size (GTK_BUTTON_BOX (hbuttonbox1), 50, 25);
