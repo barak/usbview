@@ -14,14 +14,15 @@
 
 void on_buttonClose_clicked (GtkButton *button, gpointer user_data)
 {
-	gtk_main_quit();
+	if (mainloop && g_main_loop_is_running(mainloop))
+		g_main_loop_quit(mainloop);
 }
 
 
 gboolean on_window1_delete_event (GtkWidget *widget, GdkEvent *event, gpointer user_data)
 {
-	gtk_main_quit();
-
+	if (mainloop && g_main_loop_is_running(mainloop))
+		g_main_loop_quit(mainloop);
 	return FALSE;
 }
 
