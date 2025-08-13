@@ -54,6 +54,7 @@ create_windowMain ()
 	gtk_widget_set_name (hpaned1, "hpaned1");
 	gtk_widget_set_hexpand (hpaned1, TRUE);
 	gtk_widget_set_vexpand (hpaned1, TRUE);
+	gtk_paned_set_position (GTK_PANED (hpaned1), 300);
 	gtk_box_append (GTK_BOX (vbox1), hpaned1);
 
 	treeStore = gtk_tree_store_new (N_COLUMNS,
@@ -97,6 +98,10 @@ create_windowMain ()
 	hbuttonbox1 = gtk_box_new (GTK_ORIENTATION_HORIZONTAL, 5);
 	gtk_widget_set_name (hbuttonbox1, "hbuttonbox1");
 	gtk_widget_set_halign (hbuttonbox1, GTK_ALIGN_END);
+	gtk_widget_set_margin_top (hbuttonbox1, 5);
+	gtk_widget_set_margin_bottom (hbuttonbox1, 5);
+	gtk_widget_set_margin_start (hbuttonbox1, 5);
+	gtk_widget_set_margin_end (hbuttonbox1, 5);
 	gtk_box_append (GTK_BOX (vbox1), hbuttonbox1);
 	//gtk_button_box_set_spacing (GTK_BUTTON_BOX (hbuttonbox1), 10);
 	//gtk_button_box_set_child_size (GTK_BUTTON_BOX (hbuttonbox1), 50, 25);
