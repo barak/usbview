@@ -35,10 +35,12 @@ void on_buttonRefresh_clicked (GtkButton *button, gpointer user_data)
 
 void on_buttonAbout_clicked (GtkButton *button, gpointer user_data)
 {
-	GdkPixbuf *logo;
+	GdkPixbuf *pixbuf;
+	GdkTexture *logo;
 	gchar *authors[] = { "Greg Kroah-Hartman <greg@kroah.com>", NULL };
 
-	logo = gdk_pixbuf_new_from_xpm_data ((const char **)usbview_logo_xpm);
+	pixbuf = gdk_pixbuf_new_from_xpm_data ((const char **)usbview_logo_xpm);
+	logo = gdk_texture_new_for_pixbuf (pixbuf);
 	gtk_show_about_dialog (GTK_WINDOW (windowMain),
 		"logo", logo,
 		"program-name", "usbview",
@@ -49,6 +51,7 @@ void on_buttonAbout_clicked (GtkButton *button, gpointer user_data)
 		"copyright", "Copyright © 1999-2012, 2021-2022",
 		"authors", authors,
 		NULL);
+	g_object_unref (pixbuf);
 	g_object_unref (logo);
 }
 
