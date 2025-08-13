@@ -22,12 +22,12 @@ usbview_SOURCES =		\
 	ccan/config.h			\
 	ccan/container_of/container_of.h\
 	ccan/list/list.h		\
-	usbview_logo.xpm
+	usbview_logo.svg
 
-interface.o: $(icon_bitmaps_xpm)
+# interface.o: $(icon_bitmaps_xpm)
 
 EXTRA_DIST = $(man_MANS) usbview_icon.svg usbview.desktop	\
-	usbview_logo.xcf				\
+	usbview_logo.xcf usbview_logo.svg		\
 	com.kroah.usbview.metainfo.xml			\
 	LICENSES/GPL-2.0-only.txt
 
