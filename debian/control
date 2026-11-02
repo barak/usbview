@@ -1,11 +1,10 @@
 Source: usbview
 Section: x11
-Priority: optional
 Maintainer: Barak A. Pearlmutter <bap@debian.org>
-Standards-Version: 4.7.2
-Rules-Requires-Root: no
-Homepage: http://www.kroah.com/linux-usb/
-Build-Depends: debhelper-compat (= 13),
+Standards-Version: 4.7.4
+Homepage: https://github.com/gregkh/usbview
+Build-Depends: debhelper-compat (= 14),
+		dh-sequence-single-binary,
 		autoconf-archive,
 		libgtk-3-dev,
 		imagemagick, librsvg2-bin,
