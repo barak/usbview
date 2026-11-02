@@ -1,0 +1,83 @@
+From: "Barak A. Pearlmutter" <barak+git@pearlmutter.net>
+Date: Sun, 1 Nov 2026 18:58:34 +0000
+Subject: Rasterize icons with rsvg-convert, avoiding inkscape D-Bus crash
+
+When inkscape is installed, ImageMagick's convert delegates SVG
+rendering to it.  Inkscape registers as a unique GApplication on the
+session bus, and several instances launched concurrently by a parallel
+make race on that registration and abort with
+"terminate called after throwing an instance of 'Gio::DBus::Error'"
+(ServiceUnknown: The name is not activatable), failing the build.
+
+Use rsvg-convert to rasterize the SVG when it is available, falling
+back to convert otherwise, with SELF_CALL=1 set so that inkscape, if
+used, registers as non-unique.  Derive the XPM from the 64x64 PNG so
+that convert never has to render SVG for it.
+
+See https://gitlab.com/inkscape/inkscape/-/work_items/4716
+and https://bugs.debian.org/1152805
+Forwarded: no
+---
+ Makefile.am  | 20 +++++++++++++++++---
+ configure.ac |  2 ++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 96fdef6..d75fb25 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -54,19 +54,33 @@ if ICONS
+ nobase_icon_DATA = $(icon_scalable) $(icon_bitmaps_png)
+ endif
+ 
++# Rasterize the SVG with rsvg-convert when available.  ImageMagick may
++# delegate SVG rendering to inkscape, which crashes (Gio::DBus::Error)
++# when several instances are started at once by a parallel make.
+ $(icon_bitmaps_png): usbview_icon.svg
+ 	mkdir -p $$(dirname $@)
++if HAVE_RSVG_CONVERT
++	size=$$(basename $$(dirname $$(dirname $@))); \
++	$(RSVG_CONVERT) --width=$${size%x*} --height=$${size#*x} --keep-aspect-ratio --output=$@ $<
++else
+ if HAVE_CONVERT
+-	$(CONVERT) -background none -density 300x300 -geometry $$(basename $$(dirname $$(dirname $@))) -density 96x96 $< $@
++# Work around the inkscape crash above, in case ImageMagick hands the SVG
++# to inkscape: SELF_CALL makes inkscape register as a non-unique
++# GApplication, so concurrent instances do not race on D-Bus.  See
++# https://gitlab.com/inkscape/inkscape/-/work_items/4716
++	SELF_CALL=1 $(CONVERT) -background none -density 300x300 -geometry $$(basename $$(dirname $$(dirname $@))) -density 96x96 $< $@
+ else
+ 	echo "error: unable to generate $@ from $<"
+ 	exit 1
+ endif
++endif
+ 
+-$(icon_bitmaps_xpm): usbview_icon.svg
++# The XPM is converted from the PNG of the same size, so ImageMagick
++# never has to render SVG itself.
++$(icon_bitmaps_xpm): hicolor/64x64/apps/usbview.png
+ 	mkdir -p $$(dirname $@)
+ if HAVE_CONVERT
+-	$(CONVERT) -background none -density 300x300 -geometry $$(basename $$(dirname $$(dirname $@))) -density 96x96 $< $@
++	$(CONVERT) $< $@
+ else
+ 	echo "error: unable to generate $@ from $<"
+ 	exit 1
+diff --git a/configure.ac b/configure.ac
+index 4903aac..ccc1c0c 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -31,11 +31,13 @@ AC_MSG_RESULT([$desktop])
+ 
+ AC_PROG_CC
+ AC_CHECK_PROG([have_convert],[convert],[yes],[no])
++AC_PATH_PROG([RSVG_CONVERT],[rsvg-convert])
+ 
+ # Set automake conditionals.
+ 
+ AC_SUBST(CONVERT,[convert])
+ AM_CONDITIONAL(HAVE_CONVERT, [test "$have_convert" = "yes"])
++AM_CONDITIONAL(HAVE_RSVG_CONVERT, [test -n "$RSVG_CONVERT"])
+ 
+ AS_IF([test "$have_convert" = "no"],
+       [AC_MSG_WARN([no bitmap conversion utility, disabling icon installation])
