@@ -8,9 +8,14 @@ be driven without a mouse.
 Bug-Debian: https://bugs.debian.org/927187
 Forwarded: no
 ---
+ interface.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/interface.c b/interface.c
+index 142ba91..e0c53a5 100644
 --- a/interface.c
 +++ b/interface.c
-@@ -36,6 +36,7 @@
+@@ -36,6 +36,7 @@ create_windowMain ()
  	GtkWidget *buttonAbout;
  	GdkPixbuf *icon;
  	GtkCellRenderer *treeRenderer;
@@ -18,7 +23,7 @@ Forwarded: no
  
  	windowMain = gtk_window_new (GTK_WINDOW_TOPLEVEL);
  	gtk_widget_set_name (windowMain, "windowMain");
-@@ -100,27 +101,39 @@
+@@ -100,27 +101,39 @@ create_windowMain ()
  	//gtk_button_box_set_child_size (GTK_BUTTON_BOX (hbuttonbox1), 50, 25);
  	//gtk_button_box_set_child_ipadding (GTK_BUTTON_BOX (hbuttonbox1), 25, 10);
  

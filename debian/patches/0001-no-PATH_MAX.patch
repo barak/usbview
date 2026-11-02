@@ -15,7 +15,7 @@ target contained no '/'. Which is never the case, but still.
 drop PATH_MAX patch, superseded by dynamic allocation
 Forwarded: no
 ---
- sysfs.c | 67 ++++++++++++++++++++++-----------------------------------
+ sysfs.c | 67 +++++++++++++++++++++++++----------------------------------------
  1 file changed, 26 insertions(+), 41 deletions(-)
 
 diff --git a/sysfs.c b/sysfs.c

@@ -24,6 +24,11 @@ Origin: other, https://github.com/chopin1998/usbview/tree/feature/auto-refresh
 Based-on-patch-by: chopin1998 <chopin1998@gmail.com>
 Forwarded: no
 ---
+ main.c | 101 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 101 insertions(+)
+
+diff --git a/main.c b/main.c
+index 222cfb0..7b4f568 100644
 --- a/main.c
 +++ b/main.c
 @@ -8,11 +8,111 @@
@@ -138,7 +143,7 @@ Forwarded: no
  int main (int argc, char *argv[])
  {
  	GtkWidget *window1;
-@@ -30,6 +130,7 @@
+@@ -30,6 +130,7 @@ int main (int argc, char *argv[])
  	gtk_widget_show (window1);
  
  	LoadUSBTree(0);

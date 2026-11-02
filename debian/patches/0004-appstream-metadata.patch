@@ -7,6 +7,11 @@ developer info, and release history, so that
 "appstreamcli validate --pedantic" passes cleanly.
 Forwarded: no
 ---
+ com.kroah.usbview.metainfo.xml | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/com.kroah.usbview.metainfo.xml b/com.kroah.usbview.metainfo.xml
+index bea99f7..12f94f5 100644
 --- a/com.kroah.usbview.metainfo.xml
 +++ b/com.kroah.usbview.metainfo.xml
 @@ -17,7 +17,19 @@

@@ -1,8 +1,30 @@
-usbview (3.1-4) UNRELEASED; urgency=medium
+usbview (3.1+git20250817.a3de218-1) unstable; urgency=medium
 
+  * New upstream snapshot a3de218, packaged as the orig tarball rather
+    than carrying the post-3.1 upstream changes in an auto-generated
+    debian-changes patch; drop single-debian-patch
+    - icons rendered with transparency and at full resolution
+    - SPDX FileCopyrightText fix for the .xcf file
   * Update uscan watch file to version 5 github template
+  * Bump policy to 4.7.4, no changes needed
+  * Patch: keyboard shortcuts Ctrl+Q/Ctrl+W quit, Ctrl+R/F5 refresh,
+    and button mnemonics (closes: #927187)
+  * Patch: fix AppStream metainfo validation warnings
+    (content_rating type, homepage URL, developer, releases)
+  * debian/copyright: document FSFAP metainfo and CC0/Expat ccan files
+  * Homepage: point to the upstream GitHub repository
+  * debhelper compat 14, with explicit dh-sequence-single-binary;
+    drop redundant Priority and Rules-Requires-Root
+  * Patch: replace fixed PATH_MAX buffers in sysfs.c with dynamic
+    allocation (fixes Hurd build properly), superseding the PATH_MAX patch
+  * Patch: rasterize icons with rsvg-convert rather than ImageMagick, which
+    may delegate to inkscape, whose instances crash on D-Bus when run by a
+    parallel make (Gio::DBus::Error; inkscape #1152805, upstream #4716);
+    when falling back to ImageMagick, set SELF_CALL=1 to work around that
+  * Patch: refresh the device tree automatically on USB hotplug, via kernel
+    uevents on netlink; reworked from chopin1998's auto-refresh branch
 
- -- Barak A. Pearlmutter <bap@debian.org>  Tue, 16 Dec 2025 11:36:59 +0000
+ -- Barak A. Pearlmutter <bap@debian.org>  Mon, 02 Nov 2026 11:30:00 +0000
 
 usbview (3.1-3) unstable; urgency=medium
 
